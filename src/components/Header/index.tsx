@@ -1,9 +1,10 @@
+import { NavLink } from 'react-router-dom'
 import logoCoffee from '../../assets/logo.svg'
 import {
-  CartButton,
+  Aside,
   CartCounter,
   HeaderContainer,
-  LocalizationButton
+  Localization
 } from './styles'
 
 import { MapPin, ShoppingCart } from '@phosphor-icons/react'
@@ -13,17 +14,17 @@ export function Header() {
     <HeaderContainer>
       <img src={logoCoffee} alt="" title='Coffee Delivery'/>
 
-      <div>
-        <LocalizationButton>
+      <Aside>
+        <Localization>
           <MapPin size={22} weight='fill' />
           <span>São Paulo, SP</span>
-        </LocalizationButton>
+        </Localization>
 
-        <CartButton>
+        <NavLink to='/checkout'>
           <CartCounter>3</CartCounter>
           <ShoppingCart size={22} weight='fill' />
-        </CartButton>
-      </div>
+        </NavLink>
+      </Aside>
     </HeaderContainer>
   )
 }

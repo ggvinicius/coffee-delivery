@@ -1,21 +1,6 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
-export const HeaderContainer = styled.header`
-  max-width: 70rem;
-  margin: auto;
-  padding: 2rem 0;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  div {
-    display: flex;
-    gap: 0.75rem;
-  }
-`
-
-const ButtonBase = styled.button`
+const LocationAndLinkBase = css`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -32,7 +17,30 @@ const ButtonBase = styled.button`
   }
 `
 
-export const LocalizationButton = styled(ButtonBase)`
+export const HeaderContainer = styled.header`
+  max-width: 70rem;
+  margin: auto;
+  padding: 2rem 0;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+
+export const Aside = styled.aside`
+  display: flex;
+  gap: 0.75rem;
+
+  a {
+    ${LocationAndLinkBase};
+    background-color: ${(props) => props.theme['yellow-light']};
+    color: ${(props) => props.theme['yellow-dark']};
+    position: relative;
+  }
+`
+
+export const Localization = styled.div`
+  ${LocationAndLinkBase};
   background-color: ${(props) => props.theme['purple-light']};
   color: ${(props) => props.theme['purple']};
   font-size: 0.875rem;
@@ -40,12 +48,6 @@ export const LocalizationButton = styled(ButtonBase)`
   span {
     color: ${(props) => props.theme['purple-dark']}
   }
-`
-
-export const CartButton = styled(ButtonBase)`
-  background-color: ${(props) => props.theme['yellow-light']};
-  color: ${(props) => props.theme['yellow-dark']};
-  position: relative;
 `
 
 export const CartCounter = styled.span`

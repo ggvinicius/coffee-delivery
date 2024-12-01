@@ -9,12 +9,6 @@ const LocationAndLinkBase = css`
   border: 0;
   padding: 6px;
   border-radius: 6px;
-
-  cursor: pointer;
-
-  &:hover {
-    opacity: .86;
-  }
 `
 
 export const HeaderContainer = styled.header`
@@ -25,6 +19,10 @@ export const HeaderContainer = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: 1020px) {
+    padding: 2rem .5rem;
+  }
 `
 
 export const Aside = styled.aside`
@@ -33,9 +31,16 @@ export const Aside = styled.aside`
 
   a {
     ${LocationAndLinkBase};
+    position: relative;
+
     background-color: ${(props) => props.theme['yellow-light']};
     color: ${(props) => props.theme['yellow-dark']};
-    position: relative;
+
+    cursor: pointer;
+
+    &:hover {
+      opacity: .86;
+    }
   }
 `
 

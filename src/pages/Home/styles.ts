@@ -21,6 +21,8 @@ export const HeroContainer = styled.section`
 `
 
 export const HeroContent = styled.div`
+  flex: 1;
+  
   max-width: 70rem;
   margin: auto;
 

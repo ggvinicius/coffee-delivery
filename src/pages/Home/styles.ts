@@ -1,13 +1,14 @@
 import styled from 'styled-components'
 import heroBackground from '../../assets/hero-bg.svg'
 
+// Horo
 export const HeroContainer = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
 
   max-height: 544px;
-  height: 100vh;
+  padding: 5.875rem 0 6.75rem;
 
   background-image: url(${heroBackground});
   background-position: center;
@@ -16,7 +17,7 @@ export const HeroContainer = styled.section`
 
   @media (max-width: 1020px) {
     max-height: max-content;
-    padding: 3rem .5rem;
+    padding: 5.875rem .5rem 6.75rem;
   }
 `
 
@@ -86,3 +87,25 @@ export const HeroImage = styled.img`
   width: 100%;
 `
 
+// Coffees
+
+export const CoffeesContainer = styled.main`
+  max-width: 70rem;
+  margin: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 3.375rem;
+
+  h2 {
+    font-family: "Baloo 2", serif;
+    font-weight: 800;
+    font-size: 2rem;
+  }
+`
+
+export const CoffeesWrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(256px, 1fr));
+  gap: 2.5rem 2rem;
+`

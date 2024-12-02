@@ -88,7 +88,6 @@ export const HeroImage = styled.img`
 `
 
 // Coffees
-
 export const CoffeesContainer = styled.main`
   max-width: 70rem;
   margin: auto;
@@ -101,6 +100,10 @@ export const CoffeesContainer = styled.main`
     font-family: "Baloo 2", serif;
     font-weight: 800;
     font-size: 2rem;
+  }
+
+  @media (max-width: 1020px) {
+    padding: 0 .5rem;
   }
 `
 

@@ -3,10 +3,6 @@ import heroBackground from '../../assets/hero-bg.svg'
 
 // Horo
 export const HeroContainer = styled.section`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
   max-height: 544px;
   padding: 5.875rem 0 6.75rem;
 
@@ -90,7 +86,7 @@ export const HeroImage = styled.img`
 // Coffees
 export const CoffeesContainer = styled.main`
   max-width: 70rem;
-  margin: auto;
+  margin: 2rem auto 0;
 
   display: flex;
   flex-direction: column;
@@ -100,6 +96,7 @@ export const CoffeesContainer = styled.main`
     font-family: "Baloo 2", serif;
     font-weight: 800;
     font-size: 2rem;
+    color: ${(props) => props.theme['base-subtitle']};
   }
 
   @media (max-width: 1020px) {

@@ -11,7 +11,9 @@ export const CoffeeCard = styled.div`
 `
 
 export const ImageCoffee = styled.img`
-  margin-top: -20px;
+  width: 120px;
+  height: 120px;
+  margin-top: -25px;
 `
 
 export const TagList = styled.ul`

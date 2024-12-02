@@ -1,9 +1,10 @@
 import styled from 'styled-components'
 
 export const CoffeeCard = styled.div`
+  max-height: 310px;
   background-color: ${(props) => props.theme['base-card']};
   border-radius: 0.375rem 2.25rem;
-  padding: .5rem 1.25rem 1.25rem;
+  padding: 0 1.25rem 1.25rem;
 
   display: flex;
   flex-direction: column;
@@ -11,9 +12,9 @@ export const CoffeeCard = styled.div`
 `
 
 export const ImageCoffee = styled.img`
+  margin-top: -20px;
   width: 120px;
   height: 120px;
-  margin-top: -25px;
 `
 
 export const TagList = styled.ul`
@@ -86,6 +87,8 @@ export const QuantityControls = styled.div`
   padding: .5rem 0.75rem;
 
   button {
+    display: flex;
+    
     border: none;
     background: transparent;
     color: ${(props) => props.theme.purple};

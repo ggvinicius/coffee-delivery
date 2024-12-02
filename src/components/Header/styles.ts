@@ -21,7 +21,7 @@ export const HeaderContainer = styled.header`
   align-items: center;
 
   @media (max-width: 1020px) {
-    padding: 2rem .5rem;
+    padding: 0 .5rem;
   }
 `
 

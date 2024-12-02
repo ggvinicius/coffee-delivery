@@ -14,7 +14,7 @@ const LocationAndLinkBase = css`
 export const HeaderContainer = styled.header`
   max-width: 70rem;
   margin: auto;
-  padding: 2rem 0;
+  padding: 0 0 2rem;
 
   display: flex;
   justify-content: space-between;

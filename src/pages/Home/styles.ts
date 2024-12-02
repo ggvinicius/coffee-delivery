@@ -83,7 +83,7 @@ export const HeroFeatures = styled.div`
 `
 
 export const HeroImage = styled.img`
-  max-width: 420px;
+  max-width: 476px;
   width: 100%;
 `
 

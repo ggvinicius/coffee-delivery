@@ -1,9 +1,11 @@
+import { useState } from 'react'
+
 import {
   Bank,
   CreditCard,
   CurrencyDollar,
   MapPinLine,
-  Money
+  Money,
 } from '@phosphor-icons/react'
 
 import {
@@ -11,7 +13,11 @@ import {
   AddressInputs,
   CheckoutContainer,
   CityInput,
+  CoffeeCartContainer,
+  CoffeeList,
   ComplementInput,
+  ConfirmOrderButton,
+  Error,
   FormContainer,
   FormInfo,
   Icon,
@@ -21,17 +27,24 @@ import {
   PaymentButton,
   PaymentButtonsWrapper,
   PaymentFieldset,
+  PriceItem,
+  PriceList,
   StateInput,
   StreetInput,
+  TotalPriceLabel,
+  TotalPriceValue,
   ZipCodeInput
 } from './styles'
-import { useState } from 'react'
+
+import { CoffeeItem } from './components/CoffeeItem'
 
 type MethodPaymentProps = 'credit-card' | 'debit-card' | 'money'
 
 export function Checkout() {
-  const [methodPayment, setMethodPayment] =
-    useState<MethodPaymentProps | null>(null)
+  const [
+    methodPayment,
+    setMethodPayment
+  ] = useState<MethodPaymentProps>('credit-card')
 
   function handleTogglePaymentMethod(methodPayment: MethodPaymentProps) {
     setMethodPayment(methodPayment)
@@ -42,7 +55,7 @@ export function Checkout() {
       <section>
         <h2>Complete seu pedido</h2>
 
-        <FormContainer action="">
+        <FormContainer id='orderForm' action="">
           <AddressFieldset>
             <FormInfo>
               <Icon $IconColor='yellow-dark'>
@@ -57,17 +70,17 @@ export function Checkout() {
 
             <AddressInputs>
               <ZipCodeInput>
-                <label htmlFor="zipCode">Informe o CEP</label>
+                <Error htmlFor="zipCode">Informe o CEP</Error>
                 <input type="text" id='zipCode' placeholder='CEP' />
               </ZipCodeInput>
 
               <StreetInput>
-                <label htmlFor="street">Informe a rua</label>
+                <Error htmlFor="street">Informe a rua</Error>
                 <input type="text" id='street' placeholder='Rua' />
               </StreetInput>
 
               <NumberInput>
-                <label htmlFor="number">Informe o número</label>
+                <Error htmlFor="number">Informe o número</Error>
                 <input type="text" id='number' placeholder='Número' />
               </NumberInput>
 
@@ -77,17 +90,17 @@ export function Checkout() {
               </ComplementInput>
 
               <NeighborhoodInput>
-                <label htmlFor="neighborhood">Informe o bairro</label>
+                <Error htmlFor="neighborhood">Informe o bairro</Error>
                 <input type="text" id='neighborhood' placeholder='Bairro' />
               </NeighborhoodInput>
 
               <CityInput>
-                <label htmlFor="city">Informe a cidade</label>
+                <Error htmlFor="city">Informe a cidade</Error>
                 <input type="text" id='city' placeholder='Cidade' />
               </CityInput>
 
               <StateInput>
-                <label htmlFor="state">Informe o UF</label>
+                <Error htmlFor="state">Informe o UF</Error>
                 <input type="text" id='state' placeholder='UF' />
               </StateInput>
             </AddressInputs>
@@ -145,6 +158,36 @@ export function Checkout() {
 
       <aside>
         <h2>Cafés selecionados</h2>
+
+        <CoffeeCartContainer>
+          <CoffeeList>
+
+            <CoffeeItem />
+            <CoffeeItem />
+
+          </CoffeeList>
+
+          <PriceList>
+            <PriceItem>
+              <p>Total de itens</p>
+              <span>R$ 29,70</span>
+            </PriceItem>
+
+            <PriceItem>
+              <p>Entrega</p>
+              <span>R$ 3,50</span>
+            </PriceItem>
+
+            <PriceItem>
+              <TotalPriceLabel>Total</TotalPriceLabel>
+              <TotalPriceValue>R$ 33,20</TotalPriceValue>
+            </PriceItem>
+          </PriceList>
+
+          <ConfirmOrderButton form='orderForm'>
+            Confirmar pedido
+          </ConfirmOrderButton>
+        </CoffeeCartContainer>
       </aside>
     </CheckoutContainer>
   )

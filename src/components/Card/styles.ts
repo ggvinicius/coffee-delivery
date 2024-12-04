@@ -84,7 +84,7 @@ export const QuantityControls = styled.div`
 
   background-color: ${(props) => props.theme['base-button']};
   border-radius: 0.375rem;
-  padding: .5rem 0.75rem;
+  padding: .5rem;
 
   button {
     display: flex;

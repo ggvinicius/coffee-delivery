@@ -27,7 +27,9 @@ export default tseslint.config(
       'semi': ['error', 'never'],
       'eol-last': ['error', 'always'],
       'max-len': ['error', { 'code': 80 }],
-      'arrow-parens': ['error', 'always']
+      'arrow-parens': ['error', 'always'],
+      'space-infix-ops': 'error',
+      'eqeqeq': ['error', 'always'],
     },
   },
 )

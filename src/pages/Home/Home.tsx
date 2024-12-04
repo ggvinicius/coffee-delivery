@@ -12,7 +12,7 @@ import {
 import { ShoppingCart, Package, Timer, Coffee } from '@phosphor-icons/react'
 
 import hero from '../../assets/hero.svg'
-import { HeroFeatureItem } from '../../components/HeroFeatureItem'
+import { HeroFeatureItem } from './components/HeroFeatureItem'
 import { Card } from '../../components/Card'
 
 export function Home() {

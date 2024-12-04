@@ -1,8 +1,25 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+
+const FieldsetAndAsideBase = css`
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  margin-top: 1rem;
+  background-color: ${(props) => props.theme['base-card']};
+  padding: 2.5rem;
+  border: none;
+  border-radius: 0.375rem;
+`
+
+export const Error = styled.label`
+  font-size: 0.75rem;
+  color: ${(props) => props.theme['danger']};
+`
 
 export const CheckoutContainer = styled.main`
   display: flex;
-  /* align-items: start; */
+  align-items: start;
   gap: 2rem;
 
   max-width: 70rem;
@@ -22,19 +39,8 @@ export const FormContainer = styled.form`
   gap: 0.75rem;
 `
 
-const FieldsetBase = styled.fieldset`
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-
-  margin-top: 1rem;
-  background-color: ${(props) => props.theme['base-card']};
-  padding: 2.5rem;
-  border: none;
-  border-radius: 0.375rem;
-`
-
-export const AddressFieldset = styled(FieldsetBase)`
+export const AddressFieldset = styled.fieldset`
+  ${FieldsetAndAsideBase}
 `
 
 export const FormInfo = styled.div`
@@ -81,11 +87,6 @@ const InputBase = styled.div`
   display: flex;
   flex-direction: column;
   gap: .25rem;
-
-  label {
-    font-size: 0.75rem;
-    color: ${(props) => props.theme['danger']};
-  }
 
   input {
     background-color: ${(props) => props.theme['base-input']};
@@ -151,7 +152,8 @@ export const StateInput = styled(InputBase)`
   grid-column: 3/4;
 `
 
-export const PaymentFieldset = styled(FieldsetBase)`
+export const PaymentFieldset = styled.fieldset`
+  ${FieldsetAndAsideBase}
   margin-top: 0;
 `
 
@@ -183,6 +185,8 @@ export const PaymentButton = styled.button<PaymentButtonProps>`
       ? `1px solid ${props.theme['purple']}`
       : 'none'};
 
+    transform: scale(${(props) => props.$isPaymentSelected ? 1.045 : 1});
+
     color: ${(props) => props.theme['base-text']};
     border-radius: 0.375rem;
 
@@ -200,4 +204,73 @@ export const PaymentButton = styled.button<PaymentButtonProps>`
     span {
       color: ${(props) => props.theme.purple};
     }
+`
+
+export const CoffeeCartContainer = styled.div`
+  ${FieldsetAndAsideBase}
+  border-radius: 0.375rem 2.75rem;
+  width: 28rem;
+`
+
+export const CoffeeList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  
+  list-style-type: none;
+`
+
+export const PriceList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  
+  list-style-type: none;
+`
+
+export const PriceItem = styled.li`
+  display: flex;
+  justify-content: space-between;
+
+  font-size: 0.875rem;
+  color: ${(props) => props.theme['base-text']};
+
+  span {
+    font-size: 1rem;
+  }
+`
+
+const TotalPriceBase = css`
+  font-size: 1.25rem;
+  color: ${(props) => props.theme['base-subtitle']};
+  font-weight: bold;
+`
+
+export const TotalPriceLabel = styled.li`
+  ${TotalPriceBase}
+`
+
+export const TotalPriceValue = styled.li`
+  ${TotalPriceBase}
+`
+
+export const ConfirmOrderButton = styled.button`
+  border: none;
+  border-radius: 0.375rem;
+  padding: 0.75rem;
+
+  background-color: ${(props) => props.theme.yellow};
+  color: ${(props) => props.theme.white};
+
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: all .3s;
+  
+  &:hover {
+    background-color: ${(props) => props.theme['yellow-dark']};
+    transform: scale(1.045);
+  }
 `

@@ -14,10 +14,15 @@ export const CheckoutContainer = styled.main`
     font-size: 1.125rem;
     color: ${(props) => props.theme['base-subtitle']};
   }
-  
 `
 
-export const AddressFieldset = styled.fieldset`
+export const FormContainer = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+`
+
+const FieldsetBase = styled.fieldset`
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -27,6 +32,9 @@ export const AddressFieldset = styled.fieldset`
   padding: 2.5rem;
   border: none;
   border-radius: 0.375rem;
+`
+
+export const AddressFieldset = styled(FieldsetBase)`
 `
 
 export const FormInfo = styled.div`
@@ -65,7 +73,7 @@ export const Infos = styled.div`
 export const AddressInputs = styled.div`
   display: grid;
   grid-template-columns: 200px 276px 60px;
-  align-items: start;
+  align-items: end;
   gap: 1rem;
 `
 
@@ -141,4 +149,55 @@ export const CityInput = styled(InputBase)`
 
 export const StateInput = styled(InputBase)`
   grid-column: 3/4;
+`
+
+export const PaymentFieldset = styled(FieldsetBase)`
+  margin-top: 0;
+`
+
+export const PaymentButtonsWrapper = styled.div`
+  display: flex;
+  gap: 0.75rem;
+`
+
+interface PaymentButtonProps {
+  $isPaymentSelected: boolean
+}
+
+export const PaymentButton = styled.button<PaymentButtonProps>`
+    flex: 1;
+
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    padding: 1rem;
+
+    background-color: ${(props) => props.$isPaymentSelected
+      ? props.theme['purple-light']
+      : props.theme['base-button']};
+
+    border: ${(props) => props.$isPaymentSelected
+      ? `1px solid ${props.theme['purple']}`
+      : 'none'};
+
+    color: ${(props) => props.theme['base-text']};
+    border-radius: 0.375rem;
+
+    cursor: pointer;
+
+    transition: all .3s;
+
+    &:hover {
+      background-color: ${(props) => props.$isPaymentSelected
+        ? props.theme['purple-light']
+        : props.theme['base-hover']};
+      color: ${(props) => props.theme['base-subtitle']};
+    }
+
+    span {
+      color: ${(props) => props.theme.purple};
+    }
 `

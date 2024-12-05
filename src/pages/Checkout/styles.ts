@@ -22,8 +22,9 @@ export const CheckoutContainer = styled.main`
   align-items: start;
   gap: 2rem;
 
-  max-width: 70rem;
+  max-width: 71rem;
   margin: 2.5rem auto 0;
+  padding: 0 .5rem;
 
   h2 {
     font-family: "Baloo 2", serif;

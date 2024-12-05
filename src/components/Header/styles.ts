@@ -12,17 +12,13 @@ const LocationAndLinkBase = css`
 `
 
 export const HeaderContainer = styled.header`
-  max-width: 70rem;
+  max-width: 71rem;
   margin: auto;
-  padding: 0 0 2rem;
+  padding: 0 .5rem 2rem;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  @media (max-width: 1020px) {
-    padding: 0 .5rem;
-  }
 `
 
 export const Aside = styled.aside`

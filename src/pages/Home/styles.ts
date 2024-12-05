@@ -3,7 +3,7 @@ import heroBackground from '../../assets/hero-bg.svg'
 
 // Horo
 export const HeroContainer = styled.section`
-  max-height: 544px;
+  max-height: 34rem;
   padding: 5.875rem 0 6.75rem;
 
   background-image: url(${heroBackground});
@@ -13,15 +13,16 @@ export const HeroContainer = styled.section`
 
   @media (max-width: 1020px) {
     max-height: max-content;
-    padding: 5.875rem .5rem 6.75rem;
+    padding: 5.875rem 0 6.75rem;
   }
 `
 
 export const HeroContent = styled.div`
   flex: 1;
   
-  max-width: 70rem;
+  max-width: 71rem;
   margin: auto;
+  padding: 0 .5rem;
 
   display: flex;
   justify-content: space-between;
@@ -85,8 +86,9 @@ export const HeroImage = styled.img`
 
 // Coffees
 export const CoffeesContainer = styled.main`
-  max-width: 70rem;
+  max-width: 71rem;
   margin: 2rem auto 0;
+  padding: 0 .5rem;
 
   display: flex;
   flex-direction: column;
@@ -97,10 +99,6 @@ export const CoffeesContainer = styled.main`
     font-weight: 800;
     font-size: 2rem;
     color: ${(props) => props.theme['base-subtitle']};
-  }
-
-  @media (max-width: 1020px) {
-    padding: 0 .5rem;
   }
 `
 

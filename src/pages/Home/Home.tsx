@@ -69,12 +69,7 @@ export function Home() {
           {coffeesData.map((coffee) => (
             <Card
               key={coffee.id}
-              id={coffee.id}
-              title={coffee.title}
-              description={coffee.description}
-              tags={coffee.tags}
-              price={coffee.price}
-              imageURL={coffee.image}
+              coffee={coffee}
             />
           ))}
         </CoffeesWrapper>

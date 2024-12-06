@@ -12,68 +12,71 @@ import {
   TagList,
   Title
 } from './styles'
+import { useState } from 'react'
 
-interface CoffeesProps {
+interface Coffees {
   id: string
   title: string
   description: string
   tags: string[]
   price: number
-  imageURL: string
+  image: string
 }
 
-export function Card({
-  id,
-  title,
-  description,
-  tags,
-  price,
-  imageURL
-}: CoffeesProps) {
+interface CoffeeCardProps {
+  coffee: Coffees
+}
 
-  function showId() {
-    console.log(id)
+export function Card({ coffee }: CoffeeCardProps) {
+  const [quantity, setQuantity] = useState(1)
+
+  function handleIncrementQuantity() {
+    setQuantity((state) => state + 1)
+  }
+
+  function handleDecrementQuantity() {
+    setQuantity((state) => state <= 1 ? state : state - 1)
   }
 
   return (
     <CoffeeCard>
       <ImageCoffee
-        src={imageURL}
+        src={coffee.image}
         alt=""
       />
 
       <TagList>
-        {tags.map((tag, index) => (
+        {coffee.tags.map((tag, index) => (
           <TagItem key={index}>
             {tag}
           </TagItem>
         ))}
       </TagList>
 
-      <Title>{title}</Title>
+      <Title>{coffee.title}</Title>
 
       <Description>
-        {description}
+        {coffee.description}
       </Description>
 
 
       <PriceAndControls>
-        <Price>R$ <span>{price.toFixed(2)}</span></Price>
+        <Price>R$ <span>{coffee.price.toFixed(2)}</span></Price>
 
         <Controls>
           <QuantityControls>
-            <button>
+            <button onClick={handleDecrementQuantity}>
               <Minus size={14} />
             </button>
 
-            <span>1</span>
+            <span>{quantity}</span>
 
-            <button>
+            <button onClick={handleIncrementQuantity}>
               <Plus size={14} />
             </button>
           </QuantityControls>
 
-          <AddToCartButton onClick={showId}>
+          <AddToCartButton>
             <ShoppingCart size={20} weight='fill' />
           </AddToCartButton>
         </Controls>

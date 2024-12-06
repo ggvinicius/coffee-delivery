@@ -18,6 +18,10 @@ export const HeroFeature = styled.div<BgColorProps>`
 
   color: ${(props) => props.theme['base-text']};
 
+  @media (max-width: 355px) {
+    align-items: start;
+  }
+
   div {
     width: 32px;
     height: 32px;

@@ -86,7 +86,7 @@ export function Checkout() {
 
               <ComplementInput>
                 <input type="text" id='cep' placeholder='Complemento' />
-                <span>Opcional</span>
+                <label htmlFor='cep'>Opcional</label>
               </ComplementInput>
 
               <NeighborhoodInput>

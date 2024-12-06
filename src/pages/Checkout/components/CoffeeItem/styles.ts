@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const CoffeeListItem = styled.li`
   display: flex;
-  gap: 2.5rem;
+  justify-content: space-between;
 `
 
 export const CoffeeItemContent = styled.div`

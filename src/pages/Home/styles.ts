@@ -73,6 +73,10 @@ export const HeroFeatures = styled.div`
   row-gap: 20px;
   align-items: start;
 
+  @media (max-width: 355px) {
+    column-gap: 20px;
+  }
+
   p {
     display: flex;
     gap: 0.75rem;

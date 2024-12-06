@@ -10,6 +10,14 @@ const FieldsetAndAsideBase = css`
   padding: 2.5rem;
   border: none;
   border-radius: 0.375rem;
+
+  @media (max-width: 680px) {
+  padding: 1.25rem;
+  }
+
+  @media (max-width: 340px) {
+  padding: .5rem;
+  }
 `
 
 export const Error = styled.label`
@@ -31,6 +39,23 @@ export const CheckoutContainer = styled.main`
     font-weight: bold;
     font-size: 1.125rem;
     color: ${(props) => props.theme['base-subtitle']};
+  }
+
+  aside {
+    width: 28rem;
+  }
+
+  @media (max-width: 1130px) {
+    flex-direction: column;
+    align-items: center;
+
+    section {
+      width: 100%;
+    }
+
+    aside {
+      width: 100%;
+    }
   }
 `
 
@@ -79,9 +104,19 @@ export const Infos = styled.div`
 
 export const AddressInputs = styled.div`
   display: grid;
-  grid-template-columns: 200px 276px 60px;
+  grid-template-columns: 
+    minmax(0px, 200px) minmax(0px, 276px) minmax(0px, 60px);
   align-items: end;
   gap: 1rem;
+
+  @media (max-width: 1130px) {
+    grid-template-columns:
+      minmax(200px, 1fr) minmax(276px, 1fr) minmax(60px, 1fr);
+  }
+
+  @media (max-width: 680px) {
+    grid-template-columns: 1fr;
+  }
 `
 
 const InputBase = styled.div`
@@ -108,27 +143,42 @@ const InputBase = styled.div`
   }
 `
 
+const BreakPointGridItems = css`
+  @media (max-width: 680px) {
+    grid-column: 1/-1;
+  }
+`
+
 export const ZipCodeInput = styled(InputBase)`
   grid-column: 1/2;
+
+  ${BreakPointGridItems}
 `
 
 export const StreetInput = styled(InputBase)`
   grid-column: 1/-1;
+
+  ${BreakPointGridItems}
 `
 
 export const NumberInput = styled(InputBase)`
   grid-column: 1/2;
+
+  ${BreakPointGridItems}
 `
 
 export const ComplementInput = styled(InputBase)`
   grid-column: 2/-1;
+
+  ${BreakPointGridItems}
+  
   position: relative;
 
   input {
     padding-right: 4.75rem;
   }
 
-  span {
+  label {
     font-size: 0.75rem;
     font-style: italic;
     color: ${(props) => props.theme['base-label']};
@@ -138,19 +188,27 @@ export const ComplementInput = styled(InputBase)`
     top: 50%;
     right: 20px;
     transform: translateY(-50%);
+
+    cursor: text;
   }
 `
 
 export const NeighborhoodInput = styled(InputBase)`
   grid-column: 1/2;
+
+  ${BreakPointGridItems}
 `
 
 export const CityInput = styled(InputBase)`
   grid-column: 2/3;
+
+  ${BreakPointGridItems}
 `
 
 export const StateInput = styled(InputBase)`
   grid-column: 3/4;
+
+  ${BreakPointGridItems}
 `
 
 export const PaymentFieldset = styled.fieldset`
@@ -161,6 +219,10 @@ export const PaymentFieldset = styled.fieldset`
 export const PaymentButtonsWrapper = styled.div`
   display: flex;
   gap: 0.75rem;
+
+  @media (max-width: 680px) {
+    flex-direction: column;
+  }
 `
 
 interface PaymentButtonProps {
@@ -178,13 +240,17 @@ export const PaymentButton = styled.button<PaymentButtonProps>`
     text-transform: uppercase;
     padding: 1rem;
 
+    @media (max-width: 680px) {
+      justify-content: center;
+    }
+
     background-color: ${(props) => props.$isPaymentSelected
-      ? props.theme['purple-light']
-      : props.theme['base-button']};
+    ? props.theme['purple-light']
+    : props.theme['base-button']};
 
     border: ${(props) => props.$isPaymentSelected
-      ? `1px solid ${props.theme['purple']}`
-      : 'none'};
+    ? `1px solid ${props.theme['purple']}`
+    : 'none'};
 
     transform: scale(${(props) => props.$isPaymentSelected ? 1.045 : 1});
 
@@ -197,8 +263,8 @@ export const PaymentButton = styled.button<PaymentButtonProps>`
 
     &:hover {
       background-color: ${(props) => props.$isPaymentSelected
-        ? props.theme['purple-light']
-        : props.theme['base-hover']};
+    ? props.theme['purple-light']
+    : props.theme['base-hover']};
       color: ${(props) => props.theme['base-subtitle']};
     }
 
@@ -210,7 +276,6 @@ export const PaymentButton = styled.button<PaymentButtonProps>`
 export const CoffeeCartContainer = styled.div`
   ${FieldsetAndAsideBase}
   border-radius: 0.375rem 2.75rem;
-  width: 28rem;
 `
 
 export const CoffeeList = styled.ul`

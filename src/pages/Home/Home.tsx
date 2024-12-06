@@ -15,6 +15,8 @@ import hero from '../../assets/hero.svg'
 import { HeroFeatureItem } from './components/HeroFeatureItem'
 import { Card } from '../../components/Card'
 
+import coffeesData from '../../data.json'
+
 export function Home() {
   return (
     <>
@@ -64,14 +66,17 @@ export function Home() {
         <h2>Nossos cafés</h2>
 
         <CoffeesWrapper>
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
+          {coffeesData.map((coffee) => (
+            <Card
+              key={coffee.id}
+              id={coffee.id}
+              title={coffee.title}
+              description={coffee.description}
+              tags={coffee.tags}
+              price={coffee.price}
+              imageURL={coffee.image}
+            />
+          ))}
         </CoffeesWrapper>
       </CoffeesContainer>
     </>

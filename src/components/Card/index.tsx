@@ -13,29 +13,52 @@ import {
   Title
 } from './styles'
 
-export function Card() {
+interface CoffeesProps {
+  id: string
+  title: string
+  description: string
+  tags: string[]
+  price: number
+  imageURL: string
+}
+
+export function Card({
+  id,
+  title,
+  description,
+  tags,
+  price,
+  imageURL
+}: CoffeesProps) {
+
+  function showId() {
+    console.log(id)
+  }
+
   return (
     <CoffeeCard>
       <ImageCoffee
-        src="/images/coffees/americano.png"
+        src={imageURL}
         alt=""
       />
 
-
       <TagList>
-        <TagItem>TRADICIONAL</TagItem>
-        <TagItem>TRADICIONAL</TagItem>
+        {tags.map((tag, index) => (
+          <TagItem key={index}>
+            {tag}
+          </TagItem>
+        ))}
       </TagList>
 
-      <Title>Expresso Americano</Title>
+      <Title>{title}</Title>
 
       <Description>
-        Expresso diluído, menos intenso que o tradicional
+        {description}
       </Description>
 
 
       <PriceAndControls>
-        <Price>R$ <span>9,90</span></Price>
+        <Price>R$ <span>{price.toFixed(2)}</span></Price>
 
         <Controls>
           <QuantityControls>
@@ -44,13 +67,13 @@ export function Card() {
             </button>
 
             <span>1</span>
-            
+
             <button>
               <Plus size={14} />
             </button>
           </QuantityControls>
 
-          <AddToCartButton>
+          <AddToCartButton onClick={showId}>
             <ShoppingCart size={20} weight='fill' />
           </AddToCartButton>
         </Controls>

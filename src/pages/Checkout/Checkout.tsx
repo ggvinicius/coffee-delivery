@@ -37,6 +37,7 @@ import {
 } from './styles'
 
 import { CoffeeItem } from './components/CoffeeItem'
+import { useNavigate } from 'react-router-dom'
 
 type MethodPaymentProps = 'credit-card' | 'debit-card' | 'money'
 
@@ -45,6 +46,12 @@ export function Checkout() {
     methodPayment,
     setMethodPayment
   ] = useState<MethodPaymentProps>('credit-card')
+
+  const navigate = useNavigate()
+
+  function goToSuccessPage() {
+    navigate('/success')
+  }
 
   function handleTogglePaymentMethod(methodPayment: MethodPaymentProps) {
     setMethodPayment(methodPayment)
@@ -184,7 +191,11 @@ export function Checkout() {
             </PriceItem>
           </PriceList>
 
-          <ConfirmOrderButton form='orderForm'>
+          <ConfirmOrderButton
+            onClick={goToSuccessPage}
+            form='orderForm'
+            disabled={false}
+          >
             Confirmar pedido
           </ConfirmOrderButton>
         </CoffeeCartContainer>

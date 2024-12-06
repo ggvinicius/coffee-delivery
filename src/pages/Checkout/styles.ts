@@ -335,8 +335,13 @@ export const ConfirmOrderButton = styled.button`
 
   transition: all .3s;
   
-  &:hover {
+  &:not(:disabled):hover {
     background-color: ${(props) => props.theme['yellow-dark']};
     transform: scale(1.045);
+  }
+
+  &:disabled {
+    opacity: .7;
+    cursor: not-allowed;
   }
 `

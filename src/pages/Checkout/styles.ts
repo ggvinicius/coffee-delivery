@@ -311,11 +311,11 @@ const TotalPriceBase = css`
   font-weight: bold;
 `
 
-export const TotalPriceLabel = styled.li`
+export const TotalPriceLabel = styled.p`
   ${TotalPriceBase}
 `
 
-export const TotalPriceValue = styled.li`
+export const TotalPriceValue = styled.span`
   ${TotalPriceBase}
 `
 

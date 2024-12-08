@@ -12,9 +12,10 @@ import {
   TagList,
   Title
 } from './styles'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { CartContext } from '../../contexts/CartContext'
 
-interface Coffees {
+export interface CoffeesType {
   id: string
   title: string
   description: string
@@ -24,11 +25,17 @@ interface Coffees {
 }
 
 interface CoffeeCardProps {
-  coffee: Coffees
+  coffee: CoffeesType
 }
 
 export function Card({ coffee }: CoffeeCardProps) {
+  const { addCoffeeToCart } = useContext(CartContext)
+
   const [quantity, setQuantity] = useState(1)
+
+  function handleAddCoffeeToCart() {
+    addCoffeeToCart(coffee.id, coffee, quantity)
+  }
 
   function handleIncrementQuantity() {
     setQuantity((state) => state + 1)
@@ -76,7 +83,7 @@ export function Card({ coffee }: CoffeeCardProps) {
             </button>
           </QuantityControls>
 
-          <AddToCartButton>
+          <AddToCartButton onClick={handleAddCoffeeToCart}>
             <ShoppingCart size={20} weight='fill' />
           </AddToCartButton>
         </Controls>

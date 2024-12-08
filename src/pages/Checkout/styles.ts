@@ -345,3 +345,42 @@ export const ConfirmOrderButton = styled.button`
     cursor: not-allowed;
   }
 `
+
+export const EmptyCart = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+
+  p {
+    text-align: center;
+    line-height: 1.3;
+    color: ${(props) => props.theme['base-subtitle']};
+  }
+
+  a {
+    width: 100%;
+
+    border: none;
+    border-radius: 0.375rem;
+    padding: 0.75rem;
+
+    background-color: ${(props) => props.theme.yellow};
+    color: ${(props) => props.theme.white};
+
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: all .3s;
+
+    &:hover {
+    background-color: ${(props) => props.theme['yellow-dark']};
+    transform: scale(1.045);
+  }
+  }
+`

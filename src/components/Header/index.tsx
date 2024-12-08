@@ -9,8 +9,14 @@ import {
 } from './styles'
 
 import { MapPin, ShoppingCart } from '@phosphor-icons/react'
+import { useContext } from 'react'
+import { CartContext } from '../../contexts/CartContext'
 
 export function Header() {
+  const { cart } = useContext(CartContext)
+
+  const totalCoffeesInCart = cart.length
+
   return (
     <HeaderContainer>
       <NavLink to='/'>
@@ -24,7 +30,7 @@ export function Header() {
         </Localization>
 
         <NavLink to='/checkout'>
-          <CartCounter>3</CartCounter>
+          <CartCounter>{totalCoffeesInCart}</CartCounter>
           <ShoppingCart size={22} weight='fill' />
         </NavLink>
       </Aside>

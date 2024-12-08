@@ -3,6 +3,7 @@ import { Router } from './Router'
 import { GlobalStyle } from './styles/global'
 import { ThemeProvider } from 'styled-components'
 import { DefaultTheme } from './styles/themes/default'
+import { CartContext, CartContextProvider } from './contexts/CartContext'
 
 export function App() {
   return (
@@ -10,7 +11,9 @@ export function App() {
       <GlobalStyle />
 
       <BrowserRouter>
-        <Router />
+        <CartContextProvider>
+          <Router />
+        </CartContextProvider>
       </BrowserRouter>
     </ThemeProvider>
   )

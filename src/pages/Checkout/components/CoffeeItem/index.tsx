@@ -11,45 +11,69 @@ import {
   DivisionLine,
   RemoveCoffeeButton
 } from './styles'
+import { useContext } from 'react'
+import { CartContext, CoffeesCartType } from '../../../../contexts/CartContext'
 
-export function CoffeeItem() {
+interface CoffeeItemProps {
+  coffee: CoffeesCartType
+}
+
+export function CoffeeItem({ coffee }: CoffeeItemProps) {
+  const {
+    removeCoffeeToCart,
+    incrementCoffeeQuantity,
+    decrementCoffeeQuantity
+  } = useContext(CartContext)
+
+  function handleRemoveCoffeeFromCart() {
+    removeCoffeeToCart(coffee.id)
+  }
+
+  function handleIncrementCoffeeQuantity() {
+    incrementCoffeeQuantity(coffee.id)
+  }
+
+  function handleDecrementCoffeeQuantity() {
+    decrementCoffeeQuantity(coffee.id)
+  }
+
   return (
     <>
       <CoffeeListItem>
         <CoffeeItemContent>
           <CoffeeImage
-            src="/images/coffees/americano.png"
+            src={coffee.image}
             alt=""
           />
 
           <CoffeeDetails>
-            <h3>Expresso Tradicional</h3>
+            <h3>{coffee.title}</h3>
 
             <CoffeeControls>
               <QuantityControls>
-                <button>
+                <button onClick={handleDecrementCoffeeQuantity}>
                   <Minus size={14} />
                 </button>
 
-                <span>1</span>
+                <span>{coffee.quantity}</span>
 
-                <button>
+                <button onClick={handleIncrementCoffeeQuantity}>
                   <Plus size={14} />
                 </button>
               </QuantityControls>
 
-              <RemoveCoffeeButton>
+              <RemoveCoffeeButton onClick={handleRemoveCoffeeFromCart}>
                 <span>
                   <Trash size={16} />
                 </span>
-                
+
                 Remover
               </RemoveCoffeeButton>
             </CoffeeControls>
           </CoffeeDetails>
         </CoffeeItemContent>
 
-        <CoffeePrice>R$ 9,90</CoffeePrice>
+        <CoffeePrice>R$ {coffee.price.toFixed(2)}</CoffeePrice>
       </CoffeeListItem>
 
       <DivisionLine />

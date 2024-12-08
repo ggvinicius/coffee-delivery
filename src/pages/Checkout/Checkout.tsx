@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 
 import {
   Bank,
@@ -17,6 +17,7 @@ import {
   CoffeeList,
   ComplementInput,
   ConfirmOrderButton,
+  EmptyCart,
   Error,
   FormContainer,
   FormInfo,
@@ -37,11 +38,14 @@ import {
 } from './styles'
 
 import { CoffeeItem } from './components/CoffeeItem'
-import { useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { CartContext } from '../../contexts/CartContext'
 
 type MethodPaymentProps = 'credit-card' | 'debit-card' | 'money'
 
 export function Checkout() {
+  const { cart } = useContext(CartContext)
+
   const [
     methodPayment,
     setMethodPayment
@@ -53,9 +57,22 @@ export function Checkout() {
     navigate('/success')
   }
 
+  const deliveryFee = 3.5
+
   function handleTogglePaymentMethod(methodPayment: MethodPaymentProps) {
     setMethodPayment(methodPayment)
   }
+
+  function sumTotalCoffeePrice() {
+    const result = cart.reduce((acc, {
+      price,
+      quantity
+    }) => acc += (price * (quantity ?? 0)), 0)
+
+    return result
+  }
+
+  const totalOrderCost = sumTotalCoffeePrice() + deliveryFee
 
   return (
     <CheckoutContainer>
@@ -167,37 +184,51 @@ export function Checkout() {
         <h2>Cafés selecionados</h2>
 
         <CoffeeCartContainer>
-          <CoffeeList>
+          {cart.length > 0 ? (
+            <>
+              <CoffeeList>
+                {cart.map((coffee) => (
+                  <CoffeeItem coffee={coffee} />
+                ))}
 
-            <CoffeeItem />
-            <CoffeeItem />
+              </CoffeeList>
 
-          </CoffeeList>
+              <PriceList>
+                <PriceItem>
+                  <p>Total de itens</p>
+                  <span>R$ {sumTotalCoffeePrice().toFixed(2)}</span>
+                </PriceItem>
 
-          <PriceList>
-            <PriceItem>
-              <p>Total de itens</p>
-              <span>R$ 29,70</span>
-            </PriceItem>
+                <PriceItem>
+                  <p>Entrega</p>
+                  <span>R$ {deliveryFee.toFixed(2)}</span>
+                </PriceItem>
 
-            <PriceItem>
-              <p>Entrega</p>
-              <span>R$ 3,50</span>
-            </PriceItem>
+                <PriceItem>
+                  <TotalPriceLabel>Total</TotalPriceLabel>
+                  <TotalPriceValue>
+                    R$ {totalOrderCost.toFixed(2)}
+                  </TotalPriceValue>
+                </PriceItem>
+              </PriceList>
 
-            <PriceItem>
-              <TotalPriceLabel>Total</TotalPriceLabel>
-              <TotalPriceValue>R$ 33,20</TotalPriceValue>
-            </PriceItem>
-          </PriceList>
+              <ConfirmOrderButton
+                onClick={goToSuccessPage}
+                form='orderForm'
+                disabled={false}
+              >
+                Confirmar pedido
+              </ConfirmOrderButton>
+            </>
+          ) :
+            <EmptyCart>
+              <p>
+                Seu carrinho está esperando por deliciosos cafés!
+                Adicione agora.
+              </p>
 
-          <ConfirmOrderButton
-            onClick={goToSuccessPage}
-            form='orderForm'
-            disabled={false}
-          >
-            Confirmar pedido
-          </ConfirmOrderButton>
+              <NavLink to="/">Explorar Menu</NavLink>
+            </EmptyCart>}
         </CoffeeCartContainer>
       </aside>
     </CheckoutContainer>

@@ -188,7 +188,10 @@ export function Checkout() {
             <>
               <CoffeeList>
                 {cart.map((coffee) => (
-                  <CoffeeItem coffee={coffee} />
+                  <CoffeeItem
+                    key={coffee.id}
+                    coffee={coffee}
+                  />
                 ))}
 
               </CoffeeList>

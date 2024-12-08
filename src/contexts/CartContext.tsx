@@ -23,6 +23,7 @@ interface CartContextProps {
   decrementCoffeeQuantity: (id: string) => void
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const CartContext = createContext({} as CartContextProps)
 
 export function CartContextProvider({ children }: CartProviderProps) {

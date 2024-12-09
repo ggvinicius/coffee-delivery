@@ -1,6 +1,8 @@
 import { CoffeesCartType } from '../../contexts/CartContext'
 import { ActionTypes, CartActionType } from './actions'
 
+import { produce } from 'immer'
+
 function findCoffeeIndexInCart(cart: CoffeesCartType[], id: string) {
   return cart.findIndex((coffee) => coffee.id === id)
 }
@@ -9,42 +11,49 @@ export function cartReducer(state: CoffeesCartType[], action: CartActionType) {
 
   switch (action.type) {
     case ActionTypes.ADD_COFFEE_TO_CART: {
-      const { id } = action.payload.coffee
+      const coffeeIndex = findCoffeeIndexInCart(state, action.payload.coffee.id)
 
-      const coffeeIndex = findCoffeeIndexInCart(state, id)
-
-      if (coffeeIndex < 0) {
-        const newCoffee: CoffeesCartType = {
+      if (coffeeIndex < 0) return produce(state, (draft) => {
+        draft.push({
           ...action.payload.coffee,
-          quantity: action.payload.quantity,
-        }
+          quantity: action.payload.quantity
+        })
+      })
 
-        return [...state, newCoffee]
-      } else {
-        return state.map((coffee) => coffee.id === id
-          ? { ...coffee, quantity: action.payload.quantity }
-          : coffee)
-      }
+      return produce(state, (draft) => {
+        draft[coffeeIndex].quantity = action.payload.quantity
+      })
     }
 
     case ActionTypes.REMOVE_COFFEE_FROM_CART: {
-      return state.filter((coffee) => coffee.id !== action.payload.id)
+      const coffeeIndex = findCoffeeIndexInCart(state, action.payload.id)
+
+      if (coffeeIndex < 0) return state
+
+      return produce(state, (draft) => {
+        draft.splice(coffeeIndex, 1)
+      })
     }
 
     case ActionTypes.INCREMENT_COFFEE_QUANTITY: {
-      return state.map((coffee) => coffee.id === action.payload.id
-        ? { ...coffee, quantity: coffee.quantity + 1 }
-        : coffee)
+      const coffeeIndex = findCoffeeIndexInCart(state, action.payload.id)
+
+      if (coffeeIndex < 0) return state
+
+      return produce(state, (draft) => {
+        draft[coffeeIndex].quantity += 1
+      })
     }
 
     case ActionTypes.DECREMENT_COFFEE_QUANTITY: {
-      return state.map((coffee) => coffee.id === action.payload.id
-        ? {
-          ...coffee, quantity: coffee.quantity > 1
-            ? coffee.quantity - 1
-            : 1
-        }
-        : coffee)
+      const coffeeIndex = findCoffeeIndexInCart(state, action.payload.id)
+
+      if (coffeeIndex < 0) return state
+
+      return produce(state, (draft) => {
+        draft[coffeeIndex].quantity =
+          Math.max(1, draft[coffeeIndex].quantity - 1)
+      })
     }
 
     default:

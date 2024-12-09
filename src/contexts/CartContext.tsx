@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useReducer } from 'react'
+import { createContext, ReactNode, useEffect, useReducer } from 'react'
 import { CoffeesType } from '../components/Card'
 import { cartReducer } from '../reducers/cart/reducer'
 import {
@@ -30,10 +30,22 @@ interface CartContextProps {
   decrementCoffeeQuantity: (id: string) => void
 }
 
-const CartContext = createContext({} as CartContextProps)
+// eslint-disable-next-line react-refresh/only-export-components
+export const CartContext = createContext({} as CartContextProps)
 
 export function CartContextProvider({ children }: CartProviderProps) {
-  const [cart, dispatch] = useReducer(cartReducer, [])
+  const [cart, dispatch] = useReducer(cartReducer, [], (initialValue) => {
+    const storedStateAsJSON =
+      localStorage.getItem('@coffee-delivery:cart-state-1.0.0')
+
+      return storedStateAsJSON ? JSON.parse(storedStateAsJSON) : initialValue
+  })
+
+  useEffect(() => {
+    const stateJSON = JSON.stringify(cart)
+
+    localStorage.setItem('@coffee-delivery:cart-state-1.0.0', stateJSON)
+  }, [cart])
 
   function addCoffeeToCart(coffee: CoffeesType, quantity: number) {
     dispatch(addCoffeeToCartAction(coffee, quantity))
@@ -65,5 +77,3 @@ export function CartContextProvider({ children }: CartProviderProps) {
     </CartContext.Provider>
   )
 }
-
-export { CartContext }

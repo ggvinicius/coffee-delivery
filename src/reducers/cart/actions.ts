@@ -9,7 +9,7 @@ export enum ActionTypes {
 
 export function addCoffeeToCartAction(coffee: CoffeesType, quantity: number) {
   return {
-    type: ActionTypes.ADD_COFFEE_TO_CART,
+    type: ActionTypes.ADD_COFFEE_TO_CART as ActionTypes.ADD_COFFEE_TO_CART,
     payload: {
       coffee,
       quantity
@@ -19,7 +19,8 @@ export function addCoffeeToCartAction(coffee: CoffeesType, quantity: number) {
 
 export function removeCoffeeFromCartAction(id: string) {
   return {
-    type: ActionTypes.REMOVE_COFFEE_FROM_CART,
+    type: ActionTypes.REMOVE_COFFEE_FROM_CART as
+      ActionTypes.REMOVE_COFFEE_FROM_CART,
     payload: {
       id
     }
@@ -28,7 +29,8 @@ export function removeCoffeeFromCartAction(id: string) {
 
 export function incrementCoffeeQuantityAction(id: string) {
   return {
-    type: ActionTypes.INCREMENT_COFFEE_QUANTITY,
+    type: ActionTypes.INCREMENT_COFFEE_QUANTITY as
+      ActionTypes.INCREMENT_COFFEE_QUANTITY,
     payload: {
       id
     }
@@ -37,9 +39,16 @@ export function incrementCoffeeQuantityAction(id: string) {
 
 export function decrementCoffeeQuantityAction(id: string) {
   return {
-    type: ActionTypes.DECREMENT_COFFEE_QUANTITY,
+    type: ActionTypes.DECREMENT_COFFEE_QUANTITY as
+      ActionTypes.DECREMENT_COFFEE_QUANTITY,
     payload: {
       id
     }
   }
 }
+
+export type CartActionType =
+  | ReturnType<typeof addCoffeeToCartAction>
+  | ReturnType<typeof removeCoffeeFromCartAction>
+  | ReturnType<typeof incrementCoffeeQuantityAction>
+  | ReturnType<typeof decrementCoffeeQuantityAction>

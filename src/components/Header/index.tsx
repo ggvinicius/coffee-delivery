@@ -20,7 +20,7 @@ export function Header() {
   return (
     <HeaderContainer>
       <NavLink to='/'>
-        <img src={logoCoffee} alt="" title='Coffee Delivery'/>
+        <img src={logoCoffee} alt="" title='Coffee Delivery' />
       </NavLink>
 
       <Aside>
@@ -30,7 +30,8 @@ export function Header() {
         </Localization>
 
         <NavLink to='/checkout'>
-          <CartCounter>{totalCoffeesInCart}</CartCounter>
+          {totalCoffeesInCart !== 0 &&
+            <CartCounter>{totalCoffeesInCart}</CartCounter>}
           <ShoppingCart size={22} weight='fill' />
         </NavLink>
       </Aside>

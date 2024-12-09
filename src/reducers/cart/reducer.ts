@@ -1,11 +1,11 @@
 import { CoffeesCartType } from '../../contexts/CartContext'
-import { ActionTypes } from './actions'
+import { ActionTypes, CartActionType } from './actions'
 
 function findCoffeeIndexInCart(cart: CoffeesCartType[], id: string) {
   return cart.findIndex((coffee) => coffee.id === id)
 }
 
-export function cartReducer(state: CoffeesCartType[], action: any) {
+export function cartReducer(state: CoffeesCartType[], action: CartActionType) {
 
   switch (action.type) {
     case ActionTypes.ADD_COFFEE_TO_CART: {

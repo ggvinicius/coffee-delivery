@@ -20,13 +20,13 @@ interface CoffeeItemProps {
 
 export function CoffeeItem({ coffee }: CoffeeItemProps) {
   const {
-    removeCoffeeToCart,
+    removeCoffeeFromCart,
     incrementCoffeeQuantity,
     decrementCoffeeQuantity
   } = useContext(CartContext)
 
   function handleRemoveCoffeeFromCart() {
-    removeCoffeeToCart(coffee.id)
+    removeCoffeeFromCart(coffee.id)
   }
 
   function handleIncrementCoffeeQuantity() {

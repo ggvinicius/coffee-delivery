@@ -17,8 +17,8 @@ interface CartProviderProps {
 
 interface CartContextProps {
   cart: CoffeesCartType[]
-  addCoffeeToCart: (id: string, coffee: CoffeesType, quantity: number) => void
-  removeCoffeeToCart: (id: string) => void
+  addCoffeeToCart: (coffee: CoffeesType, quantity: number) => void
+  removeCoffeeFromCart: (id: string) => void
   incrementCoffeeQuantity: (id: string) => void
   decrementCoffeeQuantity: (id: string) => void
 }
@@ -29,12 +29,13 @@ export const CartContext = createContext({} as CartContextProps)
 export function CartContextProvider({ children }: CartProviderProps) {
   const [cart, setCart] = useState<CoffeesCartType[]>([])
 
-  // Função auxiliar para encontrar o índice do café no carrinho
   function findCoffeeIndexInCart(id: string) {
     return cart.findIndex((coffee) => coffee.id === id)
   }
 
-  function addCoffeeToCart(id: string, coffee: CoffeesType, quantity: number) {
+  function addCoffeeToCart(coffee: CoffeesType, quantity: number) {
+    const { id } = coffee
+
     const coffeeIndex = findCoffeeIndexInCart(id)
 
     const newCoffee: CoffeesCartType = {
@@ -46,7 +47,7 @@ export function CartContextProvider({ children }: CartProviderProps) {
       setCart((state) =>
         state.map((coffee) =>
           coffee.id === id
-            ? { ...coffee, quantity: coffee.quantity + quantity }
+            ? { ...coffee, quantity }
             : coffee
         )
       )
@@ -55,13 +56,11 @@ export function CartContextProvider({ children }: CartProviderProps) {
     }
   }
 
-  function removeCoffeeToCart(id: string) {
+  function removeCoffeeFromCart(id: string) {
     const coffeeIndex = findCoffeeIndexInCart(id)
 
     if (coffeeIndex >= 0) {
       setCart((state) => state.filter((coffee) => coffee.id !== id))
-    } else {
-      console.log(`Café com id ${id} não encontrado no carrinho.`)
     }
   }
 
@@ -101,7 +100,7 @@ export function CartContextProvider({ children }: CartProviderProps) {
       value={{
         cart,
         addCoffeeToCart,
-        removeCoffeeToCart,
+        removeCoffeeFromCart,
         incrementCoffeeQuantity,
         decrementCoffeeQuantity,
       }}

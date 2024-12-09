@@ -34,7 +34,7 @@ export function Card({ coffee }: CoffeeCardProps) {
   const [quantity, setQuantity] = useState(1)
 
   function handleAddCoffeeToCart() {
-    addCoffeeToCart(coffee.id, coffee, quantity)
+    addCoffeeToCart(coffee, quantity)
   }
 
   function handleIncrementQuantity() {

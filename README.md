@@ -1,50 +1,73 @@
-# React + TypeScript + Vite
+# Coffee Delivery
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este é um projeto de e-commerce de café, onde o usuário pode selecionar diferentes tipos de café, adicionar ao carrinho e preencher os dados para finalização da compra.
 
-Currently, two official plugins are available:
+## Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Adicionar Café ao Carrinho**: O usuário pode adicionar um café específico ao carrinho de compras.
+- **Incrementar/Decrementar Quantidade**: Após adicionar um café ao carrinho, é possível incrementar ou decrementar a quantidade.
+- **Remover Café**: O usuário pode remover um item específico do carrinho de compras.
+- **Carrinho de Compras**: Exibe todos os itens adicionados ao carrinho, com seus respectivos preços e quantidades.
+- **Preenchimento de Dados no Formulário**: O formulário de checkout permite que o usuário insira seus dados de entrega para finalizar a compra.
 
-## Expanding the ESLint configuration
+## Tecnologias Usadas
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **React**: Biblioteca para construção de interfaces de usuário.
+- **React Router DOM**: Para navegação entre diferentes páginas do projeto.
+- **React Hook Form**: Para o gerenciamento de formulários, com validação usando Zod.
+- **Zod**: Biblioteca de validação de dados, usada para validar os dados inseridos pelo usuário no formulário.
+- **Styled Components**: Para criar componentes estilizados de forma dinâmica.
+- **Immer**: Para manipulação imutável do estado do carrinho de forma eficiente.
+- **Phosphor Icons**: Para os ícones do aplicativo.
+- **Vite**: Ferramenta de build e bundler para otimização e desenvolvimento rápido.
 
-- Configure the top-level `parserOptions` property like this:
+## Como Clonar e Rodar o Projeto
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### 1. Clonar o Repositório
+
+Primeiro, clone o repositório do projeto para a sua máquina local. Execute o comando abaixo:
+
+```bash
+git clone https://github.com/ggvinicius/coffee-delivery.git
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### 2. Instalar as Dependências
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+Após clonar o repositório, navegue até a pasta do projeto e instale as dependências:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```bash
+cd coffee-delivery
+npm install
 ```
+
+### 3. Rodar o Servidor de Desenvolvimento
+
+Para rodar o servidor de desenvolvimento, use o comando:
+
+```bash
+npm run dev
+```
+A aplicação estará disponível em http://localhost:3000.
+
+### 4. Rodar o Build
+
+Para criar a versão otimizada do projeto, execute:
+
+```bash
+npm run build
+```
+
+### 5. Rodar o Preview
+
+Após o build, você pode ver uma prévia da aplicação com:
+
+```bash
+npm run preview
+```
+
+## Scripts
+
+- **dev**: Inicia o servidor de desenvolvimento com Vite.
+- **build**: Compila o código com TypeScript e cria a versão de produção.
+- **lint**: Executa o ESLint para análise de código.
+- **preview**: Exibe uma prévia do build de produção.

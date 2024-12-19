@@ -3,6 +3,7 @@ import { CoffeesType } from '../components/Card'
 import { cartReducer } from '../reducers/cart/reducer'
 import {
   addCoffeeToCartAction,
+  cleanCartAction,
   decrementCoffeeQuantityAction,
   incrementCoffeeQuantityAction,
   removeCoffeeFromCartAction
@@ -28,6 +29,7 @@ interface CartContextProps {
   removeCoffeeFromCart: (id: string) => void
   incrementCoffeeQuantity: (id: string) => void
   decrementCoffeeQuantity: (id: string) => void
+  clearCart: () => void
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -63,6 +65,10 @@ export function CartContextProvider({ children }: CartProviderProps) {
     dispatch(decrementCoffeeQuantityAction(id))
   }
 
+  function clearCart() {
+    dispatch(cleanCartAction())
+  }
+
   return (
     <CartContext.Provider
       value={{
@@ -71,6 +77,7 @@ export function CartContextProvider({ children }: CartProviderProps) {
         removeCoffeeFromCart,
         incrementCoffeeQuantity,
         decrementCoffeeQuantity,
+        clearCart
       }}
     >
       {children}

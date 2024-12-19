@@ -1,3 +1,6 @@
+import { useEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+
 import {
   ConfirmationMessage,
   DeliveryImage,
@@ -9,8 +12,34 @@ import {
 
 import delivery from '../../assets/delivery.svg'
 import { CurrencyDollar, MapPin, Timer } from '@phosphor-icons/react'
+import { deliveryDetailsType } from '../Checkout'
 
 export function Success() {
+  const location = useLocation()
+  const stateDeliveryDetails = location.state as deliveryDetailsType
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!stateDeliveryDetails) {
+      navigate('/', { replace: true })
+    }
+  }, [stateDeliveryDetails, navigate])
+
+  if (!stateDeliveryDetails) {
+    return null
+  }
+
+  const {
+    street,
+    number,
+    neighborhood,
+    city,
+    state,
+  } = stateDeliveryDetails.data
+
+  const { methodPayment } = stateDeliveryDetails
+
   return (
     <SuccessContainer>
       <section>
@@ -27,9 +56,9 @@ export function Success() {
 
             <OrderDeliveryInfo>
               <p>
-                Entrega em <strong>Rua João Daniel Martinelli, 102</strong>
+                Entrega em <strong>{street}, {number}</strong>
               </p>
-              <p>Farrapos - Porto Alegre, RS</p>
+              <p>{neighborhood} - {city}, {state}</p>
             </OrderDeliveryInfo>
           </OrderInfo>
 
@@ -51,7 +80,11 @@ export function Success() {
 
             <OrderDeliveryInfo>
               <p>Pagamento na entrega</p>
-              <strong>Cartão de Crédito</strong>
+              <strong>
+                {methodPayment === 'credit-card' ? 'Cartão de Crédito' : ''}
+                {methodPayment === 'debit-card' ? 'Cartão de Débito' : ''}
+                {methodPayment === 'money' ? 'Dinheiro' : ''}
+              </strong>
             </OrderDeliveryInfo>
           </OrderInfo>
         </OrderInfosWrapper>

@@ -56,6 +56,10 @@ export function cartReducer(state: CoffeesCartType[], action: CartActionType) {
       })
     }
 
+    case ActionTypes.CLEAN_CART: {
+      return []
+    }
+
     default:
       return state
   }

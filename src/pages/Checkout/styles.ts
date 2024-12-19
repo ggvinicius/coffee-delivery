@@ -208,6 +208,10 @@ export const CityInput = styled(InputBase)`
 export const StateInput = styled(InputBase)`
   grid-column: 3/4;
 
+  input {
+    text-transform: uppercase;
+  }
+
   ${BreakPointGridItems}
 `
 

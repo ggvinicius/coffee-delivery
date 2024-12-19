@@ -1,4 +1,8 @@
 import { useContext, useState } from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 import {
   Bank,
@@ -38,28 +42,71 @@ import {
 } from './styles'
 
 import { CoffeeItem } from './components/CoffeeItem'
-import { NavLink, useNavigate } from 'react-router-dom'
 import { CartContext } from '../../contexts/CartContext'
 
-type MethodPaymentProps = 'credit-card' | 'debit-card' | 'money'
+type MethodPaymentType = 'credit-card' | 'debit-card' | 'money'
+
+const addressFormValidationSchema = z.object({
+  zipCode: z
+    .number({ invalid_type_error: 'Informe o CEP' })
+    .min(1, 'Informe o CEP'),
+  street: z
+    .string()
+    .min(1, 'Informe a rua')
+    .max(120, 'A rua pode ter até 120 caracteres'),
+  number: z
+    .number({ invalid_type_error: 'Informe o número' })
+    .min(0, 'Informe o número'),
+  complement: z
+    .string()
+    .optional(),
+  neighborhood: z
+    .string()
+    .min(1, 'Informe o bairro')
+    .max(60, 'O bairro pode ter até 60 caracteres'),
+  city: z
+    .string()
+    .min(1, 'Informe a cidade')
+    .max(60, 'A cidade pode ter até 60 caracteres'),
+  state: z
+    .string()
+    .length(2, 'UF: 2 caracteres')
+})
+
+type addressFormType = z.infer<typeof addressFormValidationSchema>
+
+export interface deliveryDetailsType {
+  data: addressFormType
+  methodPayment: MethodPaymentType
+}
 
 export function Checkout() {
-  const { cart } = useContext(CartContext)
+  const { cart, clearCart } = useContext(CartContext)
 
   const [
     methodPayment,
     setMethodPayment
-  ] = useState<MethodPaymentProps>('credit-card')
+  ] = useState<MethodPaymentType>('credit-card')
+
+  const { register, handleSubmit, formState: { errors } } =
+    useForm<addressFormType>({
+      resolver: zodResolver(addressFormValidationSchema),
+      defaultValues: {}
+    })
 
   const navigate = useNavigate()
 
-  function goToSuccessPage() {
-    navigate('/success')
+  function validateAddressForm(data: addressFormType) {
+    const deliveryDetails: deliveryDetailsType = {
+      data,
+      methodPayment
+    }
+
+    navigate('/success', { state: deliveryDetails })
+    clearCart()
   }
 
-  const deliveryFee = 3.5
-
-  function handleTogglePaymentMethod(methodPayment: MethodPaymentProps) {
+  function handleTogglePaymentMethod(methodPayment: MethodPaymentType) {
     setMethodPayment(methodPayment)
   }
 
@@ -67,11 +114,12 @@ export function Checkout() {
     const result = cart.reduce((acc, {
       price,
       quantity
-    }) => acc += (price * (quantity ?? 0)), 0)
+    }) => acc += (price * quantity), 0)
 
     return result
   }
 
+  const deliveryFee = 3.5
   const totalOrderCost = sumTotalCoffeePrice() + deliveryFee
 
   return (
@@ -79,7 +127,10 @@ export function Checkout() {
       <section>
         <h2>Complete seu pedido</h2>
 
-        <FormContainer id='orderForm' action="">
+        <FormContainer
+          id='orderForm'
+          onSubmit={handleSubmit(validateAddressForm)}
+        >
           <AddressFieldset>
             <FormInfo>
               <Icon $IconColor='yellow-dark'>
@@ -94,38 +145,82 @@ export function Checkout() {
 
             <AddressInputs>
               <ZipCodeInput>
-                <Error htmlFor="zipCode">Informe o CEP</Error>
-                <input type="text" id='zipCode' placeholder='CEP' />
+                {errors.zipCode &&
+                  <Error htmlFor="zipCode">{errors.zipCode.message}</Error>}
+                <input
+                  {...register('zipCode', { valueAsNumber: true })}
+                  type="number"
+                  id='zipCode'
+                  placeholder='CEP'
+                />
               </ZipCodeInput>
 
               <StreetInput>
-                <Error htmlFor="street">Informe a rua</Error>
-                <input type="text" id='street' placeholder='Rua' />
+                {errors.street &&
+                  <Error htmlFor="street">{errors.street.message}</Error>}
+                <input
+                  {...register('street')}
+                  type="text"
+                  id='street'
+                  placeholder='Rua'
+                />
               </StreetInput>
 
               <NumberInput>
-                <Error htmlFor="number">Informe o número</Error>
-                <input type="text" id='number' placeholder='Número' />
+                {errors.number &&
+                  <Error htmlFor="number">{errors.number.message}</Error>}
+                <input
+                  {...register('number', { valueAsNumber: true })}
+                  type="number"
+                  id='number'
+                  placeholder='Número'
+                />
               </NumberInput>
 
               <ComplementInput>
-                <input type="text" id='cep' placeholder='Complemento' />
-                <label htmlFor='cep'>Opcional</label>
+                <input
+                  {...register('complement')}
+                  type="text"
+                  id='complement'
+                  placeholder='Complemento'
+                />
+                <label htmlFor='complement'>Opcional</label>
               </ComplementInput>
 
               <NeighborhoodInput>
-                <Error htmlFor="neighborhood">Informe o bairro</Error>
-                <input type="text" id='neighborhood' placeholder='Bairro' />
+                {errors.neighborhood &&
+                  <Error htmlFor="neighborhood">
+                    {errors.neighborhood.message}
+                  </Error>}
+                <input
+                  {...register('neighborhood')}
+                  type="text"
+                  id='neighborhood'
+                  placeholder='Bairro'
+                />
               </NeighborhoodInput>
 
               <CityInput>
-                <Error htmlFor="city">Informe a cidade</Error>
-                <input type="text" id='city' placeholder='Cidade' />
+                {errors.city &&
+                  <Error htmlFor="city">{errors.city.message}</Error>}
+                <input
+                  {...register('city')}
+                  type="text"
+                  id='city'
+                  placeholder='Cidade'
+                />
               </CityInput>
 
               <StateInput>
-                <Error htmlFor="state">Informe o UF</Error>
-                <input type="text" id='state' placeholder='UF' />
+                {errors.state &&
+                  <Error htmlFor="state">{errors.state.message}</Error>}
+                <input
+                  {...register('state')}
+                  type="text"
+                  id='state'
+                  placeholder='UF'
+                  maxLength={2}
+                />
               </StateInput>
             </AddressInputs>
           </AddressFieldset>
@@ -216,7 +311,6 @@ export function Checkout() {
               </PriceList>
 
               <ConfirmOrderButton
-                onClick={goToSuccessPage}
                 form='orderForm'
                 disabled={false}
               >

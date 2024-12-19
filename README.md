@@ -47,7 +47,7 @@ Para rodar o servidor de desenvolvimento, use o comando:
 ```bash
 npm run dev
 ```
-A aplicação estará disponível em http://localhost:3000.
+A aplicação estará disponível em `http://localhost:<porta>`, onde `<porta>` é a atribuída pelo Vite. Exemplo: `http://localhost:3001`.
 
 ### 4. Rodar o Build
 

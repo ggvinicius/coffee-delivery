@@ -21,7 +21,7 @@ Este é um projeto de e-commerce de café, onde o usuário pode selecionar difer
 - **Phosphor Icons**: Para os ícones do aplicativo.
 - **Vite**: Ferramenta de build e bundler para otimização e desenvolvimento rápido.
 
-## Como Clonar e Rodar o Projeto
+## Como Clonar e Executar o Projeto
 
 ### 1. Clonar o Repositório
 

@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
+import { useHookFormMask } from 'use-mask-input'
+
 import {
   Bank,
   CreditCard,
@@ -48,8 +50,12 @@ type MethodPaymentType = 'credit-card' | 'debit-card' | 'money'
 
 const addressFormValidationSchema = z.object({
   zipCode: z
-    .number({ invalid_type_error: 'Informe o CEP' })
-    .min(1, 'Informe o CEP'),
+    .string()
+    .length(9, 'Informe o CEP')
+    .refine(
+      (value) => /^[0-9]{5}-[0-9]{3}$/.test(value.replace(/_/g, '')),
+      { message: 'CEP inválido' }
+    ),
   street: z
     .string()
     .min(1, 'Informe a rua')
@@ -93,6 +99,8 @@ export function Checkout() {
       resolver: zodResolver(addressFormValidationSchema),
       defaultValues: {}
     })
+
+  const registerWithMask = useHookFormMask(register)
 
   const navigate = useNavigate()
 
@@ -148,8 +156,8 @@ export function Checkout() {
                 {errors.zipCode &&
                   <Error htmlFor="zipCode">{errors.zipCode.message}</Error>}
                 <input
-                  {...register('zipCode', { valueAsNumber: true })}
-                  type="number"
+                  {...registerWithMask('zipCode', ['99999-999'])}
+                  type="text"
                   id='zipCode'
                   placeholder='CEP'
                 />
